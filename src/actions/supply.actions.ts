@@ -21,6 +21,6 @@ async function readSupplies() {
 Ya quedó la parte básica que ocupas para poder continuar. Ya quedó la 
 parte de poder leer los datos que se envien mediente el registro, asi 
 guardando la persistencia de datos. Ya te toca la demás chamba. Elimina 
-este comentario cuando empieces
+este comentario cuando
 
 */
