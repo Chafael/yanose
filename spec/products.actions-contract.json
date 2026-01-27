@@ -1,0 +1,39 @@
+{
+  "action": "addSupply",
+  "description": "Agrega un producto a la lista de suministros",
+  "input": {
+    "type": "FormData",
+    "fields": {
+      "name": {
+        "type": "string",
+        "required": true,
+        "minLength": 2,
+        "description": "Nombre del producto"
+      },
+      "quantity": {
+        "type": "number",
+        "required": true,
+        "minimum": 1,
+        "default": 1,
+        "description": "Cantidad solicitada"
+      }
+    }
+  },
+  "output": {
+    "success": {
+      "type": "boolean",
+      "description": "Indica si la operación fue exitosa"
+    },
+    "data": {
+      "type": "object",
+      "description": "Producto agregado o actualizado en la lista"
+    }
+  },
+  "errors": [
+    {
+      "code": "VALIDATION_ERROR",
+      "message": "Los datos proporcionados no cumplen con las reglas de negocio"
+    }
+  ],
+  "revalidatePath": ["/"]
+}
