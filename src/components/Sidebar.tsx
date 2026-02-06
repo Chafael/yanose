@@ -10,7 +10,7 @@ const navItems = [
     { href: '/reports/products', label: 'Top Productos' },
     { href: '/reports/inventory', label: 'Inventario' },
     { href: '/reports/customers', label: 'Clientes' },
-    { href: '/reports/channels', label: 'Canales' },
+    { href: '/reports/payments', label: 'Métodos de Pago' },
 ];
 
 export default function Sidebar() {

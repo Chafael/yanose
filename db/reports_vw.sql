@@ -1,10 +1,6 @@
--- =============================================
--- CampusCafe Analytical Views
--- =============================================
+-- vistas para los reportes del dashboard
 
--- =============================================
--- View: Daily Sales Report
--- =============================================
+-- ventas diarias agrupadas por fecha y canal
 CREATE OR REPLACE VIEW vw_sales_daily AS
 SELECT 
     DATE(o.created_at) AS sale_date,
@@ -19,9 +15,7 @@ WHERE o.status = 'Finalizado'
 GROUP BY DATE(o.created_at), o.channel
 ORDER BY sale_date DESC;
 
--- =============================================
--- View: Top Selling Products
--- =============================================
+-- productos mas vendidos
 CREATE OR REPLACE VIEW vw_top_products AS
 SELECT 
     p.id AS product_id,
@@ -38,9 +32,7 @@ LEFT JOIN orders o ON oi.order_id = o.id AND o.status = 'Finalizado'
 GROUP BY p.id, p.name, c.name, p.price
 ORDER BY total_sold DESC NULLS LAST;
 
--- =============================================
--- View: Inventory Risk (Low Stock Alert)
--- =============================================
+-- productos con stock bajo o agotado
 CREATE OR REPLACE VIEW vw_inventory_risk AS
 SELECT 
     p.id AS product_id,
@@ -64,9 +56,7 @@ LEFT JOIN orders o ON oi.order_id = o.id
 GROUP BY p.id, p.name, c.name, p.stock, p.active
 ORDER BY p.stock ASC, total_sold_last_30_days DESC;
 
--- =============================================
--- View: Customer Lifetime Value
--- =============================================
+-- valor de cada cliente
 CREATE OR REPLACE VIEW vw_customer_value AS
 SELECT 
     cu.id AS customer_id,
@@ -83,11 +73,7 @@ LEFT JOIN order_items oi ON o.id = oi.order_id
 GROUP BY cu.id, cu.name, cu.email
 ORDER BY total_spent DESC;
 
--- =============================================
--- View: Sales by Channel
--- Extra: Agregué esta vista para analizar el rendimiento por canal de venta
--- Útil para comparar Presencial vs App Móvil vs Web
--- =============================================
+-- ventas por canal
 CREATE OR REPLACE VIEW vw_sales_channel AS
 SELECT 
     o.channel,
@@ -101,3 +87,18 @@ JOIN order_items oi ON o.id = oi.order_id
 WHERE o.status = 'Finalizado'
 GROUP BY o.channel
 ORDER BY total_revenue DESC;
+
+-- metodos de pago con porcentajes
+CREATE OR REPLACE VIEW vw_payment_mix AS
+SELECT 
+    p.method,
+    COUNT(p.id) AS total_payments,
+    SUM(p.paid_amount) AS total_amount,
+    ROUND(
+        (SUM(p.paid_amount) * 100.0) / 
+        NULLIF((SELECT SUM(paid_amount) FROM payments), 0), 
+        2
+    ) AS percentage
+FROM payments p
+GROUP BY p.method
+ORDER BY total_amount DESC;

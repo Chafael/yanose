@@ -1,15 +1,6 @@
-/**
- * CampusCafe TypeScript Type Definitions
- * Interfaces for database views and data transfer objects
- */
+// tipos para los datos que vienen de la base de datos
 
-// =============================================
-// View Interfaces
-// =============================================
-
-/**
- * Daily Sales Report (vw_sales_daily)
- */
+// ventas diarias
 export interface SalesDaily {
     sale_date: Date;
     total_orders: number;
@@ -19,9 +10,7 @@ export interface SalesDaily {
     channel: string;
 }
 
-/**
- * Top Selling Products (vw_top_products)
- */
+// productos mas vendidos
 export interface TopProduct {
     product_id: number;
     product_name: string;
@@ -32,9 +21,7 @@ export interface TopProduct {
     order_count: number;
 }
 
-/**
- * Inventory Risk Alert (vw_inventory_risk)
- */
+// riesgo de inventario
 export interface InventoryRisk {
     product_id: number;
     product_name: string;
@@ -45,9 +32,7 @@ export interface InventoryRisk {
     total_sold_last_30_days: number;
 }
 
-/**
- * Customer Lifetime Value (vw_customer_value)
- */
+// valor de clientes
 export interface CustomerValue {
     customer_id: number;
     customer_name: string;
@@ -59,9 +44,7 @@ export interface CustomerValue {
     last_order: Date | null;
 }
 
-/**
- * Sales by Channel (vw_sales_channel)
- */
+// ventas por canal
 export interface SalesChannel {
     channel: string;
     total_orders: number;
@@ -71,11 +54,15 @@ export interface SalesChannel {
     total_items: number;
 }
 
-// =============================================
-// Pagination Types
-// Extra: Agregué estos tipos porque los necesitaba para tipar las respuestas paginadas en data.ts
-// =============================================
+// metodos de pago
+export interface PaymentMix {
+    method: string;
+    total_payments: number;
+    total_amount: number;
+    percentage: number;
+}
 
+// para paginacion
 export interface PaginatedResult<T> {
     data: T[];
     total: number;
@@ -84,10 +71,7 @@ export interface PaginatedResult<T> {
     totalPages: number;
 }
 
-// =============================================
-// Filter Types
-// =============================================
-
+// filtros
 export interface DateRangeFilter {
     from: Date;
     to: Date;
