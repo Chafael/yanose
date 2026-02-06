@@ -16,6 +16,8 @@ CREATE INDEX idx_orders_customer
 
 -- =============================================
 -- Additional Performance Indexes
+-- Extra: Agregué estos índices adicionales para mejorar el rendimiento
+-- en filtros comunes que usamos en las vistas analíticas
 -- =============================================
 
 -- Index for order status filtering (common query pattern)

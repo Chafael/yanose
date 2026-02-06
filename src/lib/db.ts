@@ -4,8 +4,13 @@ import { Pool } from 'pg';
  * PostgreSQL connection pool for CampusCafe database
  * Uses connection string from environment or defaults to local dev settings
  */
+// Validar que existe la variable de entorno
+if (!process.env.DATABASE_URL) {
+  throw new Error('DATABASE_URL no está definida en .env');
+}
+
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://app_user:secure_pass@localhost:5432/cafepro',
+  connectionString: process.env.DATABASE_URL,
   // Extra: Agregué estas configs para evitar conexiones colgadas y limitar recursos del servidor
   max: 20,                    // Máximo de conexiones simultáneas
   idleTimeoutMillis: 30000,   // Cierra conexiones inactivas después de 30s

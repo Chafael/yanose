@@ -1,5 +1,5 @@
-// Dashboard - Server Component que obtiene datos reales de la BD
-// REGLA: Todos los datos vienen de lib/data.ts, NADA hardcodeado
+// Dashboard - Server Component con datos reales de BD
+// Coffee Theme aplicado - REGLA: Todos los datos de lib/data.ts
 
 import KPICard from "@/components/ui/KPICard";
 import {
@@ -56,10 +56,10 @@ export default async function Dashboard() {
 
     return (
         <div>
-            {/* Header */}
+            {/* Header - Textos con colores café */}
             <div className="mb-8">
-                <h1 className="text-2xl font-bold text-slate-800">Dashboard</h1>
-                <p className="text-slate-500 mt-1">Resumen de los últimos 30 días</p>
+                <h1 className="text-2xl font-bold text-[#3E2723]">Dashboard</h1>
+                <p className="text-[#8D6E63] mt-1">Resumen de los últimos 30 días</p>
             </div>
 
             {/* KPI Cards - Datos reales de BD */}
@@ -91,20 +91,20 @@ export default async function Dashboard() {
                 />
             </div>
 
-            {/* Ventas por Canal - Datos reales */}
-            <div className="bg-white border border-slate-200 p-6">
-                <h2 className="text-lg font-semibold text-slate-800 mb-4">Ventas por Canal</h2>
+            {/* Ventas por Canal - Datos reales, tema café */}
+            <div className="bg-white border border-[#E5DCC5] p-6">
+                <h2 className="text-lg font-semibold text-[#3E2723] mb-4">Ventas por Canal</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {channels.length > 0 ? channels.map((channel) => (
-                        <div key={channel.channel} className="p-4 bg-slate-50 border border-slate-200">
-                            <p className="text-sm text-slate-500">{channel.channel}</p>
-                            <p className="text-xl font-bold text-slate-800">
+                        <div key={channel.channel} className="p-4 bg-[#FAF7F2] border border-[#E5DCC5]">
+                            <p className="text-sm text-[#8D6E63]">{channel.channel}</p>
+                            <p className="text-xl font-bold text-[#3E2723]">
                                 {formatCurrency(Number(channel.total_revenue || 0))}
                             </p>
-                            <p className="text-xs text-slate-400">{channel.total_orders} órdenes</p>
+                            <p className="text-xs text-[#8D6E63]">{channel.total_orders} órdenes</p>
                         </div>
                     )) : (
-                        <p className="text-slate-500 col-span-3">
+                        <p className="text-[#8D6E63] col-span-3">
                             Sin datos disponibles. Verifica la conexión a la BD.
                         </p>
                     )}
